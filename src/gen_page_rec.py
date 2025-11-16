@@ -1,6 +1,6 @@
 import os
 from gencontent import generate_page
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath):
     root=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     content_dir= os.listdir(dir_path_content)
     for dir in content_dir:
@@ -8,7 +8,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
         if os.path.isdir(full_path):
             dest_subdir = os.path.join(dest_dir_path, dir)
             os.makedirs(dest_subdir, exist_ok=True)
-            generate_pages_recursive(full_path,template_path,dest_subdir)
+            generate_pages_recursive(full_path,template_path,dest_subdir, basepath)
         elif os.path.isfile(full_path):
             rel = os.path.relpath(full_path, dir_path_content)
             base, ext = os.path.splitext(rel)
@@ -17,7 +17,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
             html_rel = base + ".html"
             dest_path = os.path.join(dest_dir_path, html_rel)
             os.makedirs(os.path.dirname(dest_path), exist_ok=True)
-            generate_page(full_path, template_path, dest_path)
+            generate_page(full_path, template_path, dest_path, basepath)
 
     
        
