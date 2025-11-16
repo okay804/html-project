@@ -13,7 +13,9 @@ def generate_page(from_path, template_path, dest_path, basepath):
         # language: python
     if not basepath.endswith("/"):
         basepath += "/"
-    page_html=template_text.replace("{{ Title }}", title).replace("{{ Content }}", html_string).replace('href="/',f'href="{basepath}').replace('src="/',f'src="{basepath}')
+    page_html=template_text.replace("{{ Title }}", title).replace("{{ Content }}", html_string)
+    page_html = page_html.replace('href="/', 'href="' + basepath)
+    page_html = page_html.replace('src="/', 'src="' + basepath)
     dirpath = os.path.dirname(dest_path)
     os.makedirs(dirpath, exist_ok=True)
     with open(dest_path, "w", encoding="utf-8") as f: 
