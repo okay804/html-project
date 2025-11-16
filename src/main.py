@@ -33,6 +33,7 @@ def main():
         basepath = sys.argv[1]
     else:
         basepath = "/"
+    print("basepath:", repr(basepath))
     generate_pages_recursive(from_path,template_path,dest_path,basepath)
 if __name__ == "__main__":
     main()
